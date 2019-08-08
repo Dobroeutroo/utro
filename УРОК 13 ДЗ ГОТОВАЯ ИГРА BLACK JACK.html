@@ -1,0 +1,88 @@
+﻿<meta charset="utf-8">
+<script>
+
+	var answer2 = "";
+	do {
+	answer2 = prompt("Желаете сыграть игру? Если желаете, напишите - да");
+	if(answer2 == "да"){
+
+	function getRandomInt(min,max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	function getCard() {
+		var cards = ["2", "2", "2", "2", "3", "3", "3", "3", "4", "4", "4", "4", "5", "5", "5", "5", "6", "6", "6", "6", "7", "7", "7", "7", "8", "8", "8", "8", "9", "9", "9", "9", "10", "10", "10", "10", "J", "J", "J", "J", "Q", "Q", "Q", "Q", "K", "K", "K", "K", "A", "A", "A", "A"];
+		return cards[getRandomInt(0, cards.length - 1)];
+	}
+
+	function getSum(arr) {
+
+var sum = 0;
+for (i = 0; i < arr.length; i++ ) {
+if (arr[i] == '2') { var sum = sum + 2; }
+if (arr[i] == '3') { var sum = sum + 3; }
+if (arr[i] == '4') { var sum = sum + 4; }
+if (arr[i] == '5') { var sum = sum + 5; }
+if (arr[i] == '6') { var sum = sum + 6; }
+if (arr[i] == '7') { var sum = sum + 7; }
+if (arr[i] == '8') { var sum = sum + 8; }
+if (arr[i] == '9') { var sum = sum + 9; }
+if (arr[i] == '10') { var sum = sum + 10; }
+if (arr[i] == 'J') { var sum = sum + 10; }
+if (arr[i] == 'Q') { var sum = sum + 10; }
+if (arr[i] == 'K') { var sum = sum + 10; }
+if ((arr[i] == 'A') && (sum <= 10)) { var sum = sum + 11; } else if ((arr[i] == 'A') && (sum > 10)) { var sum = sum + 1;}
+
+}
+return (sum);
+
+}
+
+function getStatus(){
+	return "Дилер: " + dealer.join(" ") + " Игрок: " + player.join(" ") + ".";
+}
+
+	var dealer = [getCard()];
+	var player = [getCard(), getCard()];
+
+	if (getSum(player) == 21) {
+		alert(getStatus() + " Ура! Black Jack с раздачи!");
+	} else {
+
+	var answer = "";
+	do {
+		answer = prompt(getStatus() + " Хотите еще одну карту? еще - да, хватит - нет");
+		if 	(answer == "да"){
+			player.push(getCard());
+			alert (getStatus());
+
+		if (getSum(player) > 21) { alert ("Проигрыш, у вас перебор: " + getSum(player)); break;} 
+		else if(getSum(player) == 21) { alert (getSum(player) + " Ура! Black Jack!"); break;}
+		
+	}else{
+
+		while (getSum(dealer) < 17){
+			dealer.push(getCard());
+		};
+		var sumDealer = getSum(dealer);
+		var sumPlayer = getSum(player);
+
+		if (sumDealer == 21){
+			alert("У дилера Black Jack! " +getStatus());
+		}else if (sumDealer > 21){
+			alert("У дилера перебор! Победа игрока! " +getStatus());
+		}else if (sumPlayer == sumDealer){
+			alert("Ничья! " +getStatus());
+		}else if (sumPlayer > sumDealer){
+			alert("Победа игрока! : " +getStatus());
+		}else{
+			alert("Увы, победа дилера! : " +getStatus());
+		}
+
+	}
+	} while(answer == "да");
+}
+}
+}while(answer2 == "да");
+
+	</script>
